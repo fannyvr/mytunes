@@ -10,6 +10,7 @@ var PlayerView = Backbone.View.extend({
       this.model.dequeue();
     }
   },
+
   initialize: function() {
   },
 
