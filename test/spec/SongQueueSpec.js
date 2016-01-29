@@ -20,13 +20,13 @@ describe('SongQueue', function() {
   });
 
   describe('when a song is added', function() {
-    // describe('when it is the only song in the song queue', function() {
-    //   it('plays it', function() {
-    //     var songQueue = new SongQueue();
-    //     songQueue.add(songData1);
-    //     expect(playSpy).to.have.been.called;
-    //   });
-    // });
+    describe('when it is the only song in the song queue', function() {
+      it('plays it', function() {
+        var songQueue = new SongQueue();
+        songQueue.add(songData1);
+        expect(playSpy).to.have.been.called;
+      });
+    });
 
     describe('when it is not the only song in the song queue', function() {
       it('does nothing', function() {
@@ -38,14 +38,14 @@ describe('SongQueue', function() {
   });
 
   describe('when a song ends', function() {
-    // it('removes the song from the queue', function() {
-    //   var songQueue = new SongQueue([songData1, songData2]);
-    //   song2 = songQueue.at(1);
-    //   expect(songQueue.length).to.equal(2);
-    //   songQueue.at(0).trigger('ended');
-    //   expect(songQueue.length).to.equal(1);
-    //   expect(songQueue.at(0)).to.equal(song2);
-    // });
+    it('removes the song from the queue', function() {
+      var songQueue = new SongQueue([songData1, songData2]);
+      song2 = songQueue.at(1);
+      expect(songQueue.length).to.equal(2);
+      songQueue.at(0).trigger('ended');
+      expect(songQueue.length).to.equal(1);
+      expect(songQueue.at(0)).to.equal(song2);
+    });
 
     describe('if there are any songs left in the queue', function() {
       it('plays the first song in the queue', function() {

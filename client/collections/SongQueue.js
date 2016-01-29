@@ -1,41 +1,36 @@
 // SongQueue.js - Defines a backbone model class for the song queue.
 var SongQueue = Songs.extend({
-
-  // TODO tomorrow: queue views, then fix logic here
-
-  // when song is playing, queueing another song or removing a song from the queue should not stop the current song
-
-  initialize: function(){
-    this.isPlaying = false;
-    this.on('add', function(song) {
-      this.addToQueue(song);
-    });
-    this.on('remove', function(song) {
-      this.isPlaying = false;
-      this.playFirst();
-    });
+  initialize: function() {
+    this.on('add', this.enqueue, this);
+    this.on('dequeue', this.dequeue, this);
+    this.on('ended', this.playNext, this);
   },
 
   playFirst: function() {
-    if(this.length > 0) {
-      this.at(0).play();
+    this.at(0).play ();
+  },
+
+  playNext: function(){
+    this.shift();
+    if (this.length > 0) {
+      this.playFirst();
+    } else {
+      this.trigger('stop');
     }
   },
 
-  // playNext: function(){
-  //   if(this.length > 0) {
-  //     this.at(0).play();
-  //   }
-  // },
-
-  addToQueue: function(song) {
-    // if a song is playing
-    if (this.isPlaying) {
-      // ignore
-      return;
+  dequeue: function(song) {
+    if (this.at(0) === song) {
+      this.playNext();
+    } else {
+      this.remove(song);
     }
-    // if no song is playing, start playing the song
-    song.play();
-    this.isPlaying = true;
+  },
+
+  enqueue: function(song) {
+    if (this.length === 1) {
+      debugger;
+      this.playFirst();
+    }
   }
 });
